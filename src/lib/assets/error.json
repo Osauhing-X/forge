@@ -1,0 +1,63 @@
+{
+  "offline": {
+    "mdx":["message"],
+    
+    "en": {
+      "message": "# No internet\nYour internet connection is either weak or non-existent!\nPlease check your internet connection."
+    },
+    "et": {
+      "message": "# Internet puudub\nTeie internetiühendus on kas nõrk või puudub üldse!\nPalun kontrollige oma internetiühendust."
+    }
+  },
+
+  "503": {
+    "en": {
+      "title": "Page under development",
+      "message": "This page is currently under development and therefore temporarily unavailable.",
+      "emoji": "SOON"
+    },
+    "et": {
+      "title": "Leht on arenduses",
+      "message": "See leht on hetkel arendusjärgus ja seetõttu ajutiselt kättesaamatu.",
+      "emoji": "VARSTI"
+    }
+  },
+  "401": {
+    "en": {
+      "console": "Login Page",
+      "title": "Welcome!",
+      "emoji": "🔒",
+      "discord":"Log in with **Discord Auth** and return to [discord/link](https://extaas.com/discord/link) to grant our [Discord Community](https://extaas.com/discord) bot access to your account."
+    },
+    "et": {
+      "console": "Sisselogimisleht",
+      "title": "Tere tulemast!",
+      "emoji": "🔒",
+      "discord": "Logi sisse **Discord Auth-ga** ja naase lehele [discord/link](https://extaas.com/discord/link), et anda meie [Discord Community](https://extaas.com/discord) botile juurdepääs sinu kontole."
+    }
+  },
+  "404": {
+    "en": {
+      "title": "UH OH! You're lost",
+      "message": "The page you are looking for does not exist.<br>How you got here is a mystery.",
+      "emoji": "🧱"
+    },
+    "et": {
+      "title": "Oi-oi! Sa oled eksinud!",
+      "message": "Lehte, mida otsite, pole olemas.<br>Kuidas te siia sattusite, on mõistatus.",
+      "emoji": "🧱"
+    }
+  },
+  "500": {
+    "en": {
+      "title": "New Error",
+      "message": "It appears that a certain function on the site is not functioning correctly due to unknown circumstances.",
+      "emoji": "💥"
+    },
+    "et": {
+      "title": "Uus viga",
+      "message": "Paistab, et teatud funktsioon saidil ei tööta tundmatutel asjaoludel korralikult.",
+      "emoji": "💥"
+    }
+  }
+}

@@ -1,0 +1,346 @@
+/* wcag.scss */
+
+
+/* ---------------------------------------------------------
+ * Typography & text spacing
+ * --------------------------------------------------------- */
+
+html {
+	font-size: var(--wcag-font-size, 100%);
+}
+
+:where(
+	body,
+	p,
+	li,
+	dt,
+	dd,
+	label,
+	input,
+	textarea,
+	select,
+	button
+) {
+	line-height: var(--wcag-line-height, 1.5);
+	letter-spacing: var(--wcag-letter-spacing, normal);
+	word-spacing: var(--wcag-word-spacing, normal);
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+	line-height: var(--wcag-heading-line-height, 1.2);
+	letter-spacing: var(--wcag-letter-spacing, normal);
+	word-spacing: var(--wcag-word-spacing, normal);
+}
+
+:where(p) {
+	margin-block-end: var(--wcag-paragraph-spacing, 1em);
+}
+
+:where(input, textarea, select, button) {
+	font: inherit;
+}
+:where(
+	p,
+	li,
+	dt,
+	dd,
+	blockquote
+) {
+	overflow-wrap: var(--wcag-overflow-wrap, break-word);
+}
+
+
+/* ---------------------------------------------------------
+ * Focus visibility
+ * --------------------------------------------------------- */
+
+:where(
+	a[href],
+	button,
+	input,
+	textarea,
+	select,
+	summary,
+	[contenteditable],
+	[tabindex]:not([tabindex='-1'])
+):focus-visible {
+	outline:
+		var(--wcag-focus-width, 3px)
+		var(--wcag-focus-style, solid)
+		var(--wcag-focus-color, currentColor);
+
+	outline-offset: var(--wcag-focus-offset, 3px);
+
+	scroll-margin:
+		var(--wcag-focus-scroll-margin, 1rem);
+}
+
+
+/* ---------------------------------------------------------
+ * Target size
+ * WCAG 2.2 AA target minimum: 24 × 24 CSS px
+ * --------------------------------------------------------- */
+
+:where(
+	button,
+	input[type='button'],
+	input[type='submit'],
+	input[type='reset'],
+	input[type='checkbox'],
+	input[type='radio'],
+	select,
+	summary
+) {
+	min-inline-size: var(--wcag-target-size, 24px);
+	min-block-size: var(--wcag-target-size, 24px);
+}
+
+
+/* ---------------------------------------------------------
+ * Links
+ * --------------------------------------------------------- */
+
+:where(a[href]) {
+	text-decoration-line:
+		var(--wcag-link-decoration, underline);
+
+	text-decoration-thickness:
+		var(--wcag-link-decoration-thickness, auto);
+
+	text-underline-offset:
+		var(--wcag-link-underline-offset, 0.15em);
+
+	text-decoration-skip-ink:
+		var(--wcag-link-skip-ink, auto);
+}
+
+
+/* ---------------------------------------------------------
+ * Form states
+ * --------------------------------------------------------- */
+
+:where(
+	button,
+	input,
+	textarea,
+	select
+):disabled,
+:where([aria-disabled='true']) {
+	opacity:
+		var(--wcag-disabled-opacity, 0.6);
+
+	cursor:
+		var(--wcag-disabled-cursor, not-allowed);
+}
+
+:where(
+	input,
+	textarea,
+	select
+)[aria-invalid='true'] {
+	outline:
+		var(--wcag-invalid-width, 3px)
+		var(--wcag-invalid-style, solid)
+		var(--wcag-invalid-color, currentColor);
+
+	outline-offset:
+		var(--wcag-invalid-offset, 2px);
+}
+
+
+/* ---------------------------------------------------------
+ * Responsive media / reflow protection
+ * --------------------------------------------------------- */
+
+:where(
+	img,
+	picture,
+	video,
+	canvas,
+	svg,
+	iframe
+) {
+	max-inline-size:
+		var(--wcag-media-max-inline-size, 100%);
+}
+
+:where(
+	img,
+	video
+) {
+	block-size:
+		var(--wcag-media-block-size, auto);
+}
+
+:where(
+	pre,
+	code
+) {
+	max-inline-size:
+		var(--wcag-code-max-inline-size, 100%);
+
+	overflow-x:
+		var(--wcag-code-overflow-x, auto);
+}
+
+
+/* ---------------------------------------------------------
+ * Tables
+ * --------------------------------------------------------- */
+
+:where(table) {
+	max-inline-size:
+		var(--wcag-table-max-inline-size, 100%);
+}
+
+:where(
+	th,
+	td
+) {
+	overflow-wrap:
+		var(--wcag-table-overflow-wrap, break-word);
+}
+
+
+/* ---------------------------------------------------------
+ * Hidden elements
+ * --------------------------------------------------------- */
+
+:where([hidden]) {
+	display: none !important;
+}
+
+
+/* ---------------------------------------------------------
+ * Dialog
+ * --------------------------------------------------------- */
+
+:where(dialog) {
+	max-inline-size:
+		var(--wcag-dialog-max-inline-size, 100%);
+
+	max-block-size:
+		var(--wcag-dialog-max-block-size, 100%);
+
+	overflow:
+		var(--wcag-dialog-overflow, auto);
+}
+
+:where(dialog::backdrop) {
+	background:
+		var(--wcag-dialog-backdrop, rgb(0 0 0 / 50%));
+}
+
+
+/* ---------------------------------------------------------
+ * Details / summary
+ * --------------------------------------------------------- */
+
+:where(summary) {
+	cursor:
+		var(--wcag-summary-cursor, pointer);
+}
+
+
+/* ---------------------------------------------------------
+ * Reduced motion
+ * --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+	:where(
+		*,
+		*::before,
+		*::after
+	) {
+		scroll-behavior:
+			var(--wcag-reduced-scroll-behavior, auto) !important;
+
+		animation-duration:
+			var(--wcag-reduced-animation-duration, 0.01ms) !important;
+
+		animation-delay:
+			var(--wcag-reduced-animation-delay, 0ms) !important;
+
+		animation-iteration-count:
+			var(--wcag-reduced-animation-iterations, 1) !important;
+
+		transition-duration:
+			var(--wcag-reduced-transition-duration, 0.01ms) !important;
+
+		transition-delay:
+			var(--wcag-reduced-transition-delay, 0ms) !important;
+	}
+}
+
+
+/* ---------------------------------------------------------
+ * Increased contrast preference
+ * --------------------------------------------------------- */
+
+@media (prefers-contrast: more) {
+	:where(
+		a[href],
+		button,
+		input,
+		textarea,
+		select,
+		summary,
+		[contenteditable],
+		[tabindex]:not([tabindex='-1'])
+	):focus-visible {
+		outline-width:
+			var(--wcag-high-contrast-focus-width, 4px);
+
+		outline-offset:
+			var(--wcag-high-contrast-focus-offset, 4px);
+	}
+}
+
+
+/* ---------------------------------------------------------
+ * Windows / OS forced colors
+ * --------------------------------------------------------- */
+
+@media (forced-colors: active) {
+	:where(
+		a[href],
+		button,
+		input,
+		textarea,
+		select,
+		summary,
+		[contenteditable],
+		[tabindex]:not([tabindex='-1'])
+	):focus-visible {
+		outline-color:
+			var(--wcag-forced-focus-color, Highlight);
+	}
+
+	:where(
+		button,
+		input,
+		textarea,
+		select
+	) {
+		border-color:
+			var(--wcag-forced-border-color, ButtonText);
+	}
+}
+
+
+/* ---------------------------------------------------------
+ * User selection
+ * --------------------------------------------------------- */
+
+:where(
+	p,
+	li,
+	dt,
+	dd,
+	blockquote,
+	pre,
+	code
+) {
+	user-select:
+		var(--wcag-user-select, text);
+}
