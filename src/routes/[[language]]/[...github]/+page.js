@@ -1,24 +1,32 @@
 import { browser } from '$app/environment';
 import { goto } from '$app/navigation';
+import { error } from '@sveltejs/kit';
 
+import { system_language } from '$lib/site/core_scripts/language.js';
 
-import { get_saved_language } from '$lib/site/core_scripts/language.js';
+export function load({ params, url, data }) {
+	let language = params.language
+	let list = data.languages
 
-export function load({ params, url }) {
-  // Auto language
-	if (browser && params.language === '@' ) {
-		const language = get_saved_language();
-		const newUrl = url.pathname.replace('/@', `/${language}`);
-		goto(newUrl, {replaceState: true});
-	}
+	// Exceptions & prerender
+	if (!browser || "_app" == language)
+		return data
 
-	return {};
+	// Auto language
+	if (language === '@') {
+		const language = system_language(null, list);
+		const newUrl = url.pathname.replace( '/@', `/${language}` );
+		goto(newUrl, { replaceState: true }); }
+
+	if(language && !list.includes(language))
+		error(404, 'Not found');
+
+	return data;
 }
 
 
-
-import { supported } from '$lib/site/core_scripts/language.js'
-
 /** @type {import('./$types').EntryGenerator} */
-export const entries = async () => {
-  return supported.map(lang => ({ language: lang })) };
+export const entries = async ({ data }) => {
+  return data.languages.map(lang => ({ language: lang })) };
+
+

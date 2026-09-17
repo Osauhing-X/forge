@@ -1,10 +1,6 @@
 import { env } from '$env/dynamic/private';
-
-const github = {
-	owner: 'Osauhing-X',
-	repo: 'forge',
-	branch: 'www'
-};
+import { github } from '$lib/server/github/config.js';
+import { createFileMap } from '$lib/server/github/file_map.js';
 
 let fileMap = null;
 
@@ -40,14 +36,12 @@ export async function handle({ event, resolve }) {
 				.filter((item) => item.type === 'blob')
 				.map((item) => item.path);
 
-			console.log(
-				'[GitHub] fileMap keys:',
-				fileMap
-			);
+			/* if(import.meta.env.DEV){
+				console.log( '[GitHub] fileMap keys:', fileMap ) } */
 		}
 	}
 
-	event.locals.github = fileMap ?? [];
+	event.locals.github = createFileMap(fileMap ?? []);
 
 	return resolve(event);
 }

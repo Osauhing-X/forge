@@ -2,32 +2,53 @@
 import { writable, get } from 'svelte/store'
 
 
-export const supported = ['et', 'en']
 export const language = writable('en')
 export const STORAGE_KEY = 'preference:i18n'
 
-
 // Browser language
-export function system_language(input){
-  // Url Includes Language
-  if(supported.includes(input)) return input
-  // Get Client Language
-  const browser_lang = typeof navigator !== 'undefined'
-    ? (navigator.language || navigator.userLanguage).split('-')[0]
-    : 'en'
-  // Client or Fallback
-  return supported.includes(browser_lang) ? browser_lang : 'en'
-}
+export function system_language(input = null, list = []) {
+	// Loe salvestatud keele preference
+	let saved = null;
+
+	if (typeof localStorage !== 'undefined') {
+		try {
+			const raw = localStorage.getItem(STORAGE_KEY);
+			saved = raw ? JSON.parse(raw)?.site?.lang : null; } 
+    catch {
+			saved = null; } }
 
 
-export function get_saved_language(fallback = system_language()) {
-  if (typeof localStorage === 'undefined') return fallback
+ /* 1. URL-i keel, kui see on lehel olemas
+    └─ kui preference puudub → salvesta see */
+	if (list.includes(input)) {
+		if (!saved && typeof localStorage !== 'undefined') {
+			try {
+				localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ site: { lang: input } }) );
+				saved = input; } 
+      catch {} }
+		return input;
+	}
 
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    const value = raw ? JSON.parse(raw)?.site?.lang : null
-    return supported.includes(value) ? value : fallback
-  } catch {
-    return fallback
-  }
+
+ /* 2. Esmakülastus + browser language
+    └─ kui browser language on olemas → kasuta seda */
+	if (!saved && typeof navigator !== 'undefined') {
+		const browser_language = ( navigator.language || navigator.userLanguage )?.split('-')[0];
+		if (list && list.includes(browser_language)) { return browser_language; } }
+
+
+ /* 3. Salvestatud preference
+    └─ kui see on sellel lehel olemas → kasuta seda */
+	if (list.includes(saved)) { return saved; }
+
+
+ /* 4. "en"
+    └─ kui see on olemas */
+	if (list.includes('en')) { return 'en'; }
+
+
+ // Backup
+	return list.length > 0 ? list[0] : null;
 }

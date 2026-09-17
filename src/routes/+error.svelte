@@ -1,12 +1,14 @@
 <script>
   import { page } from '$app/stores';
   import { system_language } from '$lib/site/core_scripts/language.js'
-  let language = system_language($page.params?.language)
+  
 
-  // Get languge data
   import pack from '$lib/assets/error.json'
+
+  let language = system_language($page.params?.language, pack.list)
+
   let source = pack?.[$page.status] || pack[500]
-  console.log(source)
+
   let { title = null, message = null } = source[language]
   
 </script>
